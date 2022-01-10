@@ -4,11 +4,7 @@
 <%@ page import ="com.javaex.vo.GuestbookVo" %>
 
 <%
-GuestbookVo guestbookVo = (GuestbookVo)request.getAttribute("gbVo");
-
-int ContentId = Integer.parseInt(request.getParameter("id"));
-int id = guestbookVo.getNo();
-String password = guestbookVo.getPassword();
+String no =request.getParameter("no");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +18,7 @@ String password = guestbookVo.getPassword();
 			<tr><!-- id -->
 				<td>ID</td>
 				<td>
-					<input type="text" name="no" value="<%=id%>">
+					<input type="text" name="no" value="<%=no%>">
 					<input type="text" name="action" value="delete">
 				</td>
 			</tr>
@@ -30,13 +26,13 @@ String password = guestbookVo.getPassword();
 			<tr><!-- password -->
 				<td>PW</td>
 				<td>
-					<input type="password" name="password" value="<%=password%>">
+					<input type="password" name="password" value="">
 					<button type="submit">delete</button>
 				</td>
 			</tr>
  		</table>
 	</form>
 	<br>
-	<a href="/WEB-INF/addList.jsp">home</a>
+	<a href="/WEB-INF/list.jsp">home</a>
 </body>
 </html>

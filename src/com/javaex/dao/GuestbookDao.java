@@ -25,6 +25,10 @@ public class GuestbookDao {
 	private String id = "webdb";
 	private String pw = "webdb";
 	
+	public GuestbookDao() {
+		
+	}
+	
 	//Connection
 	private void getConnection() {
 		try {
@@ -101,46 +105,36 @@ public class GuestbookDao {
 		}//getList 끝
 
 		//등록
-		public int insert(GuestbookVo vo){
-			int count = 0;
-			
+		public void insert(GuestbookVo guestbookVo){
 			getConnection();
 			
 			try {
 				// 3. SQL문 준비 / 바인딩 / 실행
-				String query = " insert into guestbook " + 
-			               "        (no, " + 
-			               "         name, " +
-			               "         password, " +
-			               "         content, " +
-			               "         reg_date) " +
-			               " values (seq_guestbook_no.nextval, " +
-			               "         ?, " +
-			               "         ?, " +
-			               "         ?, " +
-			               "         sysdate) " ;
+				String query = "";
+				query += " insert into guestbook ";
+				query += " VALUES (seq_guestbook_id.nextval, ?, ?, ?, sysdate) ";
 				
 				pstmt = conn.prepareStatement(query);
 				
-				pstmt.setString(1, vo.getName());
-				pstmt.setString(2, vo.getPassword());
-				pstmt.setString(3, vo.getContent());
+				pstmt.setString(1, guestbookVo.getName());
+				pstmt.setString(2, guestbookVo.getPassword());
+				pstmt.setString(3, guestbookVo.getContent());
 				
-				count = pstmt.executeUpdate();
+				int count = pstmt.executeUpdate();
 				
 				// 4.결과처리
-				System.out.println(count + "건 등록");
+				System.out.println(count + "건이 저장되었습니다");
 
 			} catch (SQLException e) {
 				System.out.println("error:" + e);
 			} 
-			
+			//5.자원정리
 			close();
-
-			return count;
-		}
+		}//insert
+		
+		
 		//삭제
-		public int delete(GuestbookVo vo) {
+		public void delete(GuestbookVo vo) {
 			int count = 0;
 			getConnection();
 			try {
@@ -159,7 +153,7 @@ public class GuestbookDao {
 				count = pstmt.executeUpdate();
 
 				// 4.결과처리
-				System.out.println(count + "건 삭제");
+				System.out.println(count + "건 삭제되었습니다");
 
 			} catch (SQLException e) {
 				System.out.println("error:" + e);
@@ -167,6 +161,6 @@ public class GuestbookDao {
 			
 			close();
 
-			return count;
+			
 		}
 	}
